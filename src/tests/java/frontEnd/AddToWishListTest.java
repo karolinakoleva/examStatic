@@ -1,6 +1,7 @@
 package frontEnd;
 
 import base.BaseTest;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.frontEnd.Login;
 import pages.frontEnd.OpenCart;
@@ -15,5 +16,7 @@ public class AddToWishListTest extends BaseTest {
         Login.successfulLogin("karolinakolevaa@abv.bg", "karolina12345");
         OpenCart.goToOpenCartPage();
         WishList.wishList();
+        String actualMessage = WishList.getMessage();
+        Assert.assertEquals(actualMessage, "My Wish List");
     }
 }

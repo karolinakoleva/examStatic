@@ -8,17 +8,22 @@ public class WishList extends BasePage {
 
     private static final By IPHONE_LOVE_BUTTON = By.xpath("(//div[@class='button-group'])[2]//button[2]");
     private static final By WISH_LIST = By.linkText("Wish List (1)");
-    private static final By MESSAGE_WISHLIST = By.id("wishlist-total");
+    private static final By MESSAGE_WISHLIST = By.xpath("//*[@id='content']//h2");
 
-    public static void wishList(){
-        clickOnWebElementByLocator(IPHONE_LOVE_BUTTON);
-        WaitTool.waitForElementVisibility(WISH_LIST,10);
-        clickOnWebElementByLocator(WISH_LIST);
-        WaitTool.waitForElementVisibility(MESSAGE_WISHLIST,10);
+    public static String getMessage(){
+        WaitTool.waitForElementVisibility(MESSAGE_WISHLIST, 10L);
+        return driver.findElement(MESSAGE_WISHLIST).getText();
     }
 
-public static void iPhoneAddToWishList(){
+    public static void wishList() {
+        clickOnWebElementByLocator(IPHONE_LOVE_BUTTON);
+        WaitTool.waitForElementVisibility(WISH_LIST, 10);
+        clickOnWebElementByLocator(WISH_LIST);
+        WaitTool.waitForElementVisibility(MESSAGE_WISHLIST, 10);
+    }
 
-}
+    public static void iPhoneAddToWishList() {
+
+    }
 
 }

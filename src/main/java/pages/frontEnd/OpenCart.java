@@ -12,6 +12,7 @@ public class OpenCart extends BasePage {
     private static final By ADD_TO_CART_BUTTON = By.id("button-cart");
     private static final By CART_BUTTON = By.id("cart-total");
     private static final By CHECKOUT_BUTTON = By.cssSelector("#cart .fa.fa-share");
+    private static final By CHECK_MESSAGE = By.xpath("//*[@id='content']//h1");
 
     public static void goToOpenCartPage() {
         driver.get("https://shop.pragmatic.bg");
@@ -34,6 +35,11 @@ public class OpenCart extends BasePage {
     }
 
     private static void clickNikonCamera() {        clickOnWebElementByLocator(NIKON);    }
+
+    public static String getCheckMessage() {
+        WaitTool.waitForElementVisibility(CHECK_MESSAGE, 10L);
+        return driver.findElement(CHECK_MESSAGE).getText();
+    }
 
     public static void buyCamera() {
         clickCameraButton();

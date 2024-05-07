@@ -7,6 +7,7 @@ import utils.WaitTool;
 public class DashboardPage extends BasePage {
     private static final By USERNAME_LABEL = By.xpath("//*[@id='user-profile']/ ..");
     private static final By LOGOUT_BUTTON = By.cssSelector(".fa.fa-sign-out");
+    private static final By LOGOUT_MESSAGE = By.cssSelector(".panel-title");
 
     public DashboardPage() {
     }
@@ -20,9 +21,14 @@ public class DashboardPage extends BasePage {
         driver.get("https://shop.pragmatic.bg/admin");
     }
 
-    public static void logOut(){
+    public static String getMessage() {
+        WaitTool.waitForElementVisibility(LOGOUT_MESSAGE, 10);
+        return driver.findElement(LOGOUT_MESSAGE).getText();
+    }
 
+    public static void logOut() {
         clickOnWebElementByLocator(LOGOUT_BUTTON);
+        WaitTool.waitForElementVisibility(LOGOUT_MESSAGE, 10);
     }
 
 }

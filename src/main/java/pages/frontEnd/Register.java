@@ -14,7 +14,7 @@ import java.time.Duration;
 public class Register extends BasePage {
 
     private static final By MY_ACCOUNT = By.xpath("(//div[@id='top-links'])//li[2]");
-    private static final By REGISTER = By.partialLinkText("Register");
+    private static final By REGISTER_BUTTON = By.xpath("(//*[@id=\"top-links\"])//li//li[1]");
     private static final By FIRST_NAME = By.id("input-firstname");
     private static final By LAST_NAME = By.id("input-lastname");
     private static final By EMAIL = By.id("input-email");
@@ -24,13 +24,16 @@ public class Register extends BasePage {
     private static final By AGREE_BUTTON = By.name("agree");
     private static final By CONTINUE_BUTTON = By.cssSelector(".btn.btn-primary");
     private static final By ALREADY_REGISTERED_EMAIL_MESSAGE = By.cssSelector(".alert.alert-danger.alert-dismissible");
+    private static final By MESSAGE = By.id("content");
+
     private static void clickMyAccountButton() {
         clickOnWebElementByLocator(MY_ACCOUNT);
     }
+
     private static void clickRegisterButton() {
-        clickOnWebElementByLocator(REGISTER);
+        clickOnWebElementByLocator(REGISTER_BUTTON);
     }
-    private static final By MESSAGE = By.id("content");
+
 
     private static void writeInFirstNameInputField(String firstName) {
         writeTextInWebElement(FIRST_NAME, firstName);
@@ -71,8 +74,14 @@ public class Register extends BasePage {
         return driver.findElement(MESSAGE).getText();
     }
 
-    public static void successfulRegister(String firstName, String lastName, String email , String telephone, String password, String passwordConfirm) {
+    public static String getUnsuccessfulMessage() {
+        WaitTool.waitForElementVisibility(ALREADY_REGISTERED_EMAIL_MESSAGE, 10);
+        return driver.findElement(ALREADY_REGISTERED_EMAIL_MESSAGE).getText();
+    }
+
+    public static void successfulRegister(String firstName, String lastName, String email, String telephone, String password, String passwordConfirm) {
         clickMyAccountButton();
+        WaitTool.waitForElementVisibility(REGISTER_BUTTON, 10);
         clickRegisterButton();
         WaitTool.waitForElementVisibility(FIRST_NAME, 10);
         writeInFirstNameInputField(firstName);
@@ -83,11 +92,12 @@ public class Register extends BasePage {
         writeInPasswordConfirmInputField(passwordConfirm);
         clickAgreeButton();
         clickContinueButton();
+        WaitTool.waitForElementVisibility(MESSAGE,10);
     }
 
     public static void unsuccessfulRegister(String firstName, String lastName, String email, String telephone, String password, String passwordConfirm) {
         clickMyAccountButton();
-        WaitTool.waitForElementVisibility(REGISTER, 10);
+        WaitTool.waitForElementVisibility(REGISTER_BUTTON, 10);
         clickRegisterButton();
         WaitTool.waitForElementVisibility(FIRST_NAME, 10);
         writeInFirstNameInputField(firstName);
@@ -98,6 +108,6 @@ public class Register extends BasePage {
         writeInPasswordConfirmInputField(passwordConfirm);
         clickAgreeButton();
         clickContinueButton();
-        WaitTool.waitForElementVisibility(ALREADY_REGISTERED_EMAIL_MESSAGE,10);
+        WaitTool.waitForElementVisibility(ALREADY_REGISTERED_EMAIL_MESSAGE, 10);
     }
 }
