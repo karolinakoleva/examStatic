@@ -19,4 +19,5 @@ public class WaitTool {
         WebElement element = (WebElement)wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         return element;
     }
+
 }
